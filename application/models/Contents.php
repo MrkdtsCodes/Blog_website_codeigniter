@@ -8,9 +8,13 @@
            return $this->db->insert('posts', $data);
         }
 
-
+        //join categories table to posts to access the name attribute of category_id
         public function getAllPosts() {  //view SELECT
-            return $this->db->get('posts')->result();
+            //  $this->db->get('posts')->result();
+            $this->db->join('categories', 'categories.id = posts.category_id');
+            $query = $this->db->get('posts');
+            return $query->result();
+
         }
 
 
