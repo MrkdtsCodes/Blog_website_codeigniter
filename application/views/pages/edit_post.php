@@ -29,6 +29,40 @@
                        
                     </div>
 
+                    <div class="mb-5">
+                <label for="category" class="block mb-2 text-sm font-medium text-gray-700">
+                    Category
+                </label>
+
+                <select name="category" id="category"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none transition-colors">
+
+                    <option value="" disabled selected>
+                        <?php 
+                       
+                        ?>
+                    </option>
+
+                    <?php foreach ($categories as $cats): ?>
+                        <option value="<?= $cats->id ?>">
+                            <?= $cats->name ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select>
+
+                <?php if (form_error('category')): ?>
+                        <small class="text-red-500 text-xs mt-1 block font-medium">
+                            <?= form_error('category') ?>
+                        </small>
+                    <?php endif; ?>
+                </div>
+
+                <div class="">
+                    <label>Upload Image</label>
+                    <input type="file" name="userfile" size="20">
+                </div>
+
                     <div class="flex items-center gap-3">
                         <button type="submit"
                             class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2 rounded-lg">

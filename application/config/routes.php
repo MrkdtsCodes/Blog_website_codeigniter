@@ -77,3 +77,6 @@ $route['update/now/(:any)'] = 'Blogpage_Controllers/updatepost/$1';
 $route['delete/post/(:num)'] = 'Blogpage_Controllers/deletepost/$1';
 
 $route['home/read/(:any)'] = 'Blogpage_Controllers/readmore/$1';
+
+//sort by category
+$route['home/sort/(:any)'] = 'Blogpage_Controllers/sortbyCategory/$1';
