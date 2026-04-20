@@ -7,7 +7,7 @@
  * @property form_validation $form_validation
  * @property upload $upload
  * @property Contents $contents
- * 
+ * @property Session $session
  */
 
 class Blogpage_Controllers extends CI_Controller
@@ -20,21 +20,21 @@ class Blogpage_Controllers extends CI_Controller
         $this->load->model('Contents'); //load the model and give the data
     }
 
-    public function displayListingpage()//view
+    public function displayListingpage() //view
     {
         //i load na na natin yung mga articles na ginagawa natin
         // yung pangalawnag value ay parang rename lng ng method mo
 
-       
-            $data['blogs'] = $this->Contents->getAllPosts();
-            
-        
-            if(empty($data['blogs'])){
-                $data['error_message'] = "The database has no Contents";;
-            }
 
-            $this->load->view('pages/navigation_bar');
-            $this->load->view('pages/listing_page', $data);
+        $data['blogs'] = $this->Contents->getAllPosts();
+
+
+        if (empty($data['blogs'])) {
+            $data['error_message'] = "The database has no Contents";;
+        }
+
+        $this->load->view('pages/navigation_bar');
+        $this->load->view('pages/listing_page', $data);
         // $this->load->view('pages/listing_page', ['blogs'=>$blogs]);
     }
 
@@ -53,9 +53,9 @@ class Blogpage_Controllers extends CI_Controller
 
 
     public function displayCreatePost()
+    //this this plays the current categories in out db
     {
-        $data['categories'] = $this->Contents->get_categories();
-
+        $data['categories'] = $this->contents->get_categories();
         $this->load->view('pages/create_post', $data);
     }
 
@@ -111,26 +111,23 @@ class Blogpage_Controllers extends CI_Controller
     }
 
 
-
+    //update-edit
 
     public function editpost($id)
+    //pang show ng db
     {
-
-
-        $data['blogs'] = $this->Contents->geteditID($id);
-
-        $data['categories'] = $this->Contents->get_categories();
-
+        $data['post'] = $this->contents->geteditID($id);
+        $data['categories'] = $this->contents->get_categories();
         $this->load->view('pages/edit_post', $data);
     }
 
 
-    public function updatepost($id){
-
-        $this->Contents->updateID($id);
+    public function updatepost($id)
+    { //sending the data to be updated 
 
         $this->displayListingpage();
     }
+
 
     public function deletepost($id)
     {
@@ -153,5 +150,43 @@ class Blogpage_Controllers extends CI_Controller
         $this->load->view('pages/readmore', $data);
     }
 
-    public function sortbyCategory() {}
+
+    //create user's account
+    public function displaycreatepage()
+    {
+        $this->load->view('pages/create_account');
+    }
+
+
+    public function getCrtUsr()
+    {
+        //validations 
+        $this->form_validation->set_rules('lastname', 'Your Lastname is ', 'required');
+        $this->form_validation->set_rules('firstname', 'Your Firstname is ', 'required');
+        $this->form_validation->set_rules('middlename', 'Your Middlename is ', 'required');
+        $this->form_validation->set_rules('email_address', 'Email Address', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+
+        $enc_pass = md5($this->input->post('password'));
+
+
+        //passing the values to model
+        if ($this->form_validation->run()) {
+
+            //encryot password
+            $is_saved = $this->contents->newUsrinsert($enc_pass);
+
+            if (!$is_saved) {
+                echo "may mali";
+            } else {
+                echo "sumacess ka eh";
+
+                $this->session->set_flashdata('user_registered', "you are now logged in");
+                redirect('home');
+            }
+        } else {
+            $this->displaycreatepage();
+            //pag tawag  and pinapasa yung erros
+        }
+    }
 }

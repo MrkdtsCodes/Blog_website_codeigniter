@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -66,13 +66,13 @@ $route['home/about'] = 'Blogpage_Controllers/displayAbout';
 $route['contact'] = 'Blogpage_Controllers/displayContacts';
 $route['home/contact'] = 'Blogpage_Controllers/displayContacts';
 
-$route['create/post'] = 'Blogpage_Controllers/displayCreatePost'; 
+$route['create/post'] = 'Blogpage_Controllers/displayCreatePost';
 
-$route['create/Blog'] = 'Blogpage_Controllers/getformsData'; 
+$route['create/Blog'] = 'Blogpage_Controllers/getformsData';
 
-$route['update/Post/(:any)'] = 'Blogpage_Controllers/editpost/$1';
+$route['update/Post/(:any)'] = 'Blogpage_Controllers/editpost/$1'; //ppaunta sa edit view
 
-$route['update/now/(:any)'] = 'Blogpage_Controllers/updatepost/$1';
+$route['update/now/(:any)'] = 'Blogpage_Controllers/updatepost/$1'; //
 
 $route['delete/post/(:num)'] = 'Blogpage_Controllers/deletepost/$1';
 
@@ -80,3 +80,8 @@ $route['home/read/(:any)'] = 'Blogpage_Controllers/readmore/$1';
 
 //sort by category
 $route['home/sort/(:any)'] = 'Blogpage_Controllers/sortbyCategory/$1';
+
+
+
+$route['create/account'] = 'Blogpage_Controllers/displaycreatepage';
+$route['submit/account'] = 'Blogpage_Controllers/getCrtUsr';

@@ -36,7 +36,7 @@
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none transition-colors">
 
                     <option value="" disabled selected>-- Select a Category --</option>
-
+                    
                     <?php foreach ($categories as $cats): ?>
                         <option value="<?= $cats['id'] ?>">
                             <?= $cats['name'] ?>
